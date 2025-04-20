@@ -51,5 +51,9 @@ namespace Test3D
             Vector v = new Vector(v1.Y * v2.Z - v1.Z * v2.Y, v1.Z * v2.X - v1.X * v2.Z, v1.X * v2.Y - v1.Y * v2.X);
             return v;
         }
+        public static Vector SwitchVector(Vector v)
+        {
+            return new Vector(-v.X, -v.Y, -v.Z);
+        }
     }
 }

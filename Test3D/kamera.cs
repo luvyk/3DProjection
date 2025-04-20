@@ -24,7 +24,7 @@ namespace Test3D
         public Vertex BodKameryC { get; set; }
         public Vertex BodKameryD { get; set; }
 
-        public kamera(Vertex zakladniBod, Vertex druhyBod, decimal uhelPohleduX, decimal uhelPohleduY, decimal uhelPohledu, int sirkaSnimace, int vyskaSnimace)
+        public kamera(Vertex zakladniBod, Vertex druhyBod, decimal uhelPohleduX, decimal uhelPohleduY, int sirkaSnimace, int vyskaSnimace)
         {
             ZakladniBod = zakladniBod;
             DruhyBod = druhyBod;
@@ -34,13 +34,14 @@ namespace Test3D
             VyskaSnimace = vyskaSnimace;
             DelkaDohledu = 1000;
             NatoceniKamery = 0;
+            PomocnyBod = new Vertex(0, 0, 0);
 
-
+            RotateCamera();
             BodKameryA = GetPointInTriangle(true, true);
             BodKameryB = GetPointInTriangle(true, true);
             BodKameryC = GetPointInTriangle(true, true);
             BodKameryD = GetPointInTriangle(true, true);
-            RotateCamera();
+            Console.WriteLine("");
         }
 
         public List<Vertex> VyberVertexy()
@@ -62,7 +63,9 @@ namespace Test3D
             //works only up to some 70 degrees... maybe
             PomocnyBod = ZakladniBod;
             PomocnyBod.PoziceX += 10;
-            Vector kolmyVector = Vector.GetperpendicularVector(Vector.GetVectorFromVertexes(ZakladniBod, DruhyBod), Vector.GetVectorFromVertexes(ZakladniBod, PomocnyBod));
+            Vector vec1 = Vector.GetVectorFromVertexes(ZakladniBod, DruhyBod);
+            Vector vec2 = Vector.GetVectorFromVertexes(ZakladniBod, PomocnyBod);
+            Vector kolmyVector = Vector.GetperpendicularVector(vec1, vec2);
             Vector kolmyNormalVector = Vector.NormalizeVector(kolmyVector);
             //decimal delkaPreponyProOtoceniK = (decimal)Math.Sqrt(Math.Pow((double)PomocnyBod.PoziceX - (double)ZakladniBod.PoziceX, 2) + Math.Pow((double)PomocnyBod.PoziceY - (double)ZakladniBod.PoziceY, 2) + Math.Pow((double)PomocnyBod.PoziceZ - (double)ZakladniBod.PoziceZ, 2)) / (decimal)Math.Cos(30);
             decimal delkaPreponyProOtoceniK = 10 / (decimal)Math.Cos((double)NatoceniKamery);
@@ -87,27 +90,40 @@ namespace Test3D
             Vector nVKon = Vector.NormalizeVector(vKol);
             //Vertex pravaStrana = nV.MoveByVectorAndLenght(MiddleOfTheBase, delkaPosunutiX);
 
+            Vertex vertexNaVraceni = MiddleOfTheBase;
+            Vector minusNVKon = Vector.SwitchVector(nVKon);
+            Vector minusNV = Vector.SwitchVector(nV);
             switch ((isXPositive, isYPositive))
             {
                 case (true, true):
-                    Vertex vertexNaVraceni = MiddleOfTheBase;
+                    
                     vertexNaVraceni = nV.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiX);
                     vertexNaVraceni = nVKon.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiY);
                     return vertexNaVraceni;
+
                     break;
                 case (true, false):
-                    Console.WriteLine("První je true, druhá je false.");
+                    vertexNaVraceni = nV.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiX);
+                    vertexNaVraceni = minusNVKon.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiY);
+                    return vertexNaVraceni;
+
                     break;
                 case (false, true):
-                    Console.WriteLine("První je false, druhá je true.");
+                    vertexNaVraceni = minusNV.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiX);
+                    vertexNaVraceni = nVKon.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiY);
+                    return vertexNaVraceni;
+
                     break;
                 case (false, false):
-                    Console.WriteLine("Obě hodnoty jsou false.");
+                    vertexNaVraceni = minusNV.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiX);
+                    vertexNaVraceni = minusNVKon.MoveByVectorAndLenght(vertexNaVraceni, delkaPosunutiY);
+                    return vertexNaVraceni;
+
                     break;
             }
 
 
-            return new Vertex(0, 0, 0);
+            //return new Vertex(0, 0, 0);
         }
     }
 }

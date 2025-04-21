@@ -16,7 +16,7 @@ namespace Test3D
             Vertex v = new Vertex(0, 0, 0);
             Vertex x = new Vertex(0, 0, 10);
 
-            kamera K = new kamera(v, x, 40, 40, 200, 200);
+            kamera K = new kamera(v, x, 180, 90, 200, 200);
         }
     }
 }

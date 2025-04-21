@@ -38,9 +38,9 @@ namespace Test3D
 
             RotateCamera();
             BodKameryA = GetPointInTriangle(true, true);
-            BodKameryB = GetPointInTriangle(true, true);
-            BodKameryC = GetPointInTriangle(true, true);
-            BodKameryD = GetPointInTriangle(true, true);
+            BodKameryB = GetPointInTriangle(true, false);
+            BodKameryC = GetPointInTriangle(false, false);
+            BodKameryD = GetPointInTriangle(false, true);
             Console.WriteLine("");
         }
 
@@ -61,7 +61,9 @@ namespace Test3D
         public void RotateCamera()
         {
             //works only up to some 70 degrees... maybe
-            PomocnyBod = ZakladniBod;
+            PomocnyBod.PoziceX = ZakladniBod.PoziceX;
+            PomocnyBod.PoziceY = ZakladniBod.PoziceY;
+            PomocnyBod.PoziceZ = ZakladniBod.PoziceZ;
             PomocnyBod.PoziceX += 10;
             Vector vec1 = Vector.GetVectorFromVertexes(ZakladniBod, DruhyBod);
             Vector vec2 = Vector.GetVectorFromVertexes(ZakladniBod, PomocnyBod);
@@ -69,8 +71,9 @@ namespace Test3D
             Vector kolmyNormalVector = Vector.NormalizeVector(kolmyVector);
             //decimal delkaPreponyProOtoceniK = (decimal)Math.Sqrt(Math.Pow((double)PomocnyBod.PoziceX - (double)ZakladniBod.PoziceX, 2) + Math.Pow((double)PomocnyBod.PoziceY - (double)ZakladniBod.PoziceY, 2) + Math.Pow((double)PomocnyBod.PoziceZ - (double)ZakladniBod.PoziceZ, 2)) / (decimal)Math.Cos(30);
             decimal delkaPreponyProOtoceniK = 10 / (decimal)Math.Cos((double)NatoceniKamery);
-            decimal delkaCestyNahoru = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyProOtoceniK, 2) - Math.Pow((double)100, 2));
-            PomocnyBod = kolmyNormalVector.MoveByVectorAndLenght(PomocnyBod, delkaCestyNahoru);
+            double delkaPreponyProOtoceniK2 = (double)Math.Round(delkaPreponyProOtoceniK, 15);
+            double delkaCestyNahoru = Math.Sqrt(Math.Pow((double)delkaPreponyProOtoceniK2, 2) - Math.Pow(10, 2));
+            PomocnyBod = kolmyNormalVector.MoveByVectorAndLenght(PomocnyBod, (decimal)delkaCestyNahoru);
         }
 
         public Vertex GetPointInTriangle(bool isXPositive, bool isYPositive)

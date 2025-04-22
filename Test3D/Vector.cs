@@ -38,11 +38,11 @@ namespace Test3D
 
             return new Vector(nX, nY, nZ);
         }
-        public Vertex MoveByVectorAndLenght(Vertex ver, decimal lengh)
+        public Vertex MoveByVectorAndLenght(Vertex ver, decimal lenght)
         {
-            decimal xNew = ver.PoziceX + lengh * X;
-            decimal yNew = ver.PoziceY + lengh * Y;
-            decimal zNew = ver.PoziceZ + lengh * Z;
+            decimal xNew = ver.PoziceX + lenght * X;
+            decimal yNew = ver.PoziceY + lenght * Y;
+            decimal zNew = ver.PoziceZ + lenght * Z;
 
             return new Vertex(xNew, yNew, zNew);
         }

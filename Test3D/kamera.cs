@@ -80,20 +80,29 @@ namespace Test3D
         {
             Vertex MiddleOfTheBase = GetMiddleOfBase();
 
-            decimal delkaPreponyX = DelkaDohledu / (decimal)Math.Cos((double)UhelPohleduX);
+            decimal UhelPohleduXRad = UhelPohleduX * (decimal)Math.PI / 180;
+            decimal UhelPohleduYRad = UhelPohleduY * (decimal)Math.PI / 180;
+            decimal delkaPreponyX = DelkaDohledu / (decimal)Math.Cos((double)UhelPohleduXRad);
             decimal delkaPosunutiX = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyX,2) - Math.Pow((double)DelkaDohledu,2));
-            decimal delkaPreponyY = DelkaDohledu / (decimal)Math.Cos((double)UhelPohleduY);
+            decimal delkaPreponyY = DelkaDohledu / (decimal)Math.Cos((double)UhelPohleduYRad);
             decimal delkaPosunutiY = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyY, 2) - Math.Pow((double)DelkaDohledu, 2));
 
 
 
-            Vector v = Vector.GetVectorFromVertexes(ZakladniBod, PomocnyBod);
-            Vector vKol = Vector.GetperpendicularVector(Vector.GetVectorFromVertexes(ZakladniBod, DruhyBod), v);
-            Vector nV = Vector.NormalizeVector(v);
+            Vector v1 = Vector.GetVectorFromVertexes(ZakladniBod, PomocnyBod);
+            Vector v2 = Vector.GetVectorFromVertexes(ZakladniBod, DruhyBod);
+            Vector vKol = Vector.GetperpendicularVector( v2, v1);
+            Vector nV = Vector.NormalizeVector(v1);
             Vector nVKon = Vector.NormalizeVector(vKol);
             //Vertex pravaStrana = nV.MoveByVectorAndLenght(MiddleOfTheBase, delkaPosunutiX);
 
-            Vertex vertexNaVraceni = MiddleOfTheBase;
+            //Vertex vertexNaVraceni = MiddleOfTheBase;
+            Vertex vertexNaVraceni = new Vertex(0, 0, 0);
+            vertexNaVraceni.PoziceX = MiddleOfTheBase.PoziceX;
+            vertexNaVraceni.PoziceY = MiddleOfTheBase.PoziceY;
+            vertexNaVraceni.PoziceZ = MiddleOfTheBase.PoziceZ;
+
+
             Vector minusNVKon = Vector.SwitchVector(nVKon);
             Vector minusNV = Vector.SwitchVector(nV);
             switch ((isXPositive, isYPositive))

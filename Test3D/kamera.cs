@@ -138,9 +138,20 @@ namespace Test3D
             //return new Vertex(0, 0, 0);
         }
         
-        public void ProjectPoints()
+        public Bitmap ProjectPoints(List<Vertex> vertexes)
         {
+            Plane plane1 = new Plane();
+            plane1.GetPlane(ZakladniBod, BodKameryC, BodKameryD);
+            Plane plane2 = new Plane();
+            plane2.GetPlane(ZakladniBod, BodKameryD, BodKameryA);
 
+            foreach (Vertex vertex in vertexes)
+            {
+                decimal distance = vertex.GetDistanceFromPlane(plane1);
+
+            }
+
+            return new Bitmap(10, 10);
         }
     }
 }

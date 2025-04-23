@@ -137,10 +137,10 @@ namespace Test3D
 
             //return new Vertex(0, 0, 0);
         }
-        public List<Vertex> GetPointInTriangle(List<Vertex> vertexes)
+        
+        public void ProjectPoints()
         {
 
-            return new List<Vertex>();
         }
     }
 }

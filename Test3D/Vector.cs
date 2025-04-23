@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test3D
 {
-    internal class Vector
+    public class Vector
     {
         public decimal X {  get; set; }
         public decimal Y { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace Test3D
             BodKameryB = GetPointInTriangle(true, false);
             BodKameryC = GetPointInTriangle(false, false);
             BodKameryD = GetPointInTriangle(false, true);
-            Console.WriteLine("");
+            //Console.WriteLine("");
         }
 
         public List<Vertex> VyberVertexy()
@@ -140,6 +141,10 @@ namespace Test3D
         
         public Bitmap ProjectPoints(List<Vertex> vertexes)
         {
+            Plane baisicPlane = new Plane();
+            baisicPlane.GetPlane(BodKameryA, BodKameryB, BodKameryC);
+            Bitmap Obrazek = new Bitmap(SirkaSnimace, VyskaSnimace);
+
             Plane plane1 = new Plane();
             plane1.GetPlane(ZakladniBod, BodKameryC, BodKameryD);
             Plane plane2 = new Plane();
@@ -147,11 +152,35 @@ namespace Test3D
 
             foreach (Vertex vertex in vertexes)
             {
-                decimal distance = vertex.GetDistanceFromPlane(plane1);
+                    decimal distanceFromLeftPlane = vertex.GetDistanceFromPlane(plane1);
+                    decimal distanceFromBottomLane = vertex.GetDistanceFromPlane(plane2);
 
+                decimal distanceFromBack = vertex.GetDistanceFromPlane(baisicPlane);
+                decimal distanceFromFront = DelkaDohledu - distanceFromBack;
+                decimal UhelPohleduXRad = UhelPohleduX * (decimal)Math.PI / 180;
+                decimal UhelPohleduYRad = UhelPohleduY * (decimal)Math.PI / 180;
+                decimal delkaPreponyX = distanceFromFront / (decimal)Math.Cos((double)UhelPohleduXRad);
+                decimal delkaPosunutiX = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyX, 2) - Math.Pow((double)distanceFromFront, 2));
+
+                decimal delkaPreponyY = distanceFromFront / (decimal)Math.Cos((double)UhelPohleduYRad);
+                decimal delkaPosunutiY = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyY, 2) - Math.Pow((double)distanceFromFront, 2));
+                
+                    decimal delkaTrojuhelnikuVBodeX = delkaPosunutiX * 2;
+                    decimal delkaTrojuhelnikuVBodeY = delkaPosunutiY * 2;
+
+                decimal relativePositionInCameraX = distanceFromLeftPlane / delkaTrojuhelnikuVBodeX;
+                decimal relativePositionInCameraY = distanceFromBottomLane / delkaTrojuhelnikuVBodeY;
+
+                decimal positionOnSensorX = relativePositionInCameraX * SirkaSnimace;
+                decimal positionOnSensorY = relativePositionInCameraY * VyskaSnimace;
+
+                using (Graphics g = Graphics.FromImage(Obrazek))
+                {
+                    g.FillRectangle(Brushes.Red, (int)Math.Round(positionOnSensorX, 0), (int)Math.Round(positionOnSensorY, 0), 4, 4);
+                }
             }
 
-            return new Bitmap(10, 10);
+            return Obrazek;
         }
     }
 }

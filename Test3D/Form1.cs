@@ -13,10 +13,18 @@ namespace Test3D
             Pen pen = new Pen(Color.Red);
             g.DrawEllipse(pen, 100, 100, 100, 100);
 
+            List<Vertex> vertexes = new List<Vertex>();
+            vertexes.Add(new Vertex(10, 12, 45));
+
             Vertex v = new Vertex(0, 0, 0);
             Vertex x = new Vertex(0, 0, 10);
 
-            kamera K = new kamera(v, x, 10, 40, 200, 200);
+            kamera K = new kamera(v, x, 40, 40, 200, 200);
+            Bitmap b = K.ProjectPoints(vertexes);
+            pictureBox1.Width = 200;
+            pictureBox1.Height = 200;
+
+            pictureBox1.Image = b;
         }
     }
 }

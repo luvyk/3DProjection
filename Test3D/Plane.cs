@@ -35,6 +35,9 @@ namespace Test3D
             Vector v1 = Vector.GetVectorFromVertexes(ver1, ver2);
             Vector v2 = Vector.GetVectorFromVertexes(ver1, ver3);
 
+            //Vector nV1 = Vector.NormalizeVector(v1);
+            //Vector nV2 = Vector.NormalizeVector(v2);
+
             Vector kolV = Vector.GetperpendicularVector(v1, v2);
             Vector norKolV = Vector.NormalizeVector(kolV);
 

@@ -142,13 +142,13 @@ namespace Test3D
         public Bitmap ProjectPoints(List<Vertex> vertexes)
         {
             Plane baisicPlane = new Plane();
-            baisicPlane.GetPlane(BodKameryA, BodKameryB, BodKameryC);
+            baisicPlane = baisicPlane.GetPlane(BodKameryA, BodKameryB, BodKameryC);
             Bitmap Obrazek = new Bitmap(SirkaSnimace, VyskaSnimace);
 
             Plane plane1 = new Plane();
-            plane1.GetPlane(ZakladniBod, BodKameryC, BodKameryD);
+            plane1= plane1.GetPlane(ZakladniBod, BodKameryC, BodKameryD);
             Plane plane2 = new Plane();
-            plane2.GetPlane(ZakladniBod, BodKameryD, BodKameryA);
+            plane2 = plane2.GetPlane(ZakladniBod, BodKameryD, BodKameryA);
 
             foreach (Vertex vertex in vertexes)
             {
@@ -165,8 +165,8 @@ namespace Test3D
                 decimal delkaPreponyY = distanceFromFront / (decimal)Math.Cos((double)UhelPohleduYRad);
                 decimal delkaPosunutiY = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyY, 2) - Math.Pow((double)distanceFromFront, 2));
                 
-                    decimal delkaTrojuhelnikuVBodeX = delkaPosunutiX * 2;
-                    decimal delkaTrojuhelnikuVBodeY = delkaPosunutiY * 2;
+                    decimal delkaTrojuhelnikuVBodeX = delkaPosunutiX;
+                    decimal delkaTrojuhelnikuVBodeY = delkaPosunutiY;
 
                 decimal relativePositionInCameraX = distanceFromLeftPlane / delkaTrojuhelnikuVBodeX;
                 decimal relativePositionInCameraY = distanceFromBottomLane / delkaTrojuhelnikuVBodeY;
@@ -176,7 +176,7 @@ namespace Test3D
 
                 using (Graphics g = Graphics.FromImage(Obrazek))
                 {
-                    g.FillRectangle(Brushes.Red, (int)Math.Round(positionOnSensorX, 0), (int)Math.Round(positionOnSensorY, 0), 4, 4);
+                    g.FillRectangle(Brushes.Black, (int)Math.Round(positionOnSensorX, 0), (int)Math.Round(positionOnSensorY, 0), 4, 4);
                 }
             }
 

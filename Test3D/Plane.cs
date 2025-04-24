@@ -39,11 +39,11 @@ namespace Test3D
             //Vector nV2 = Vector.NormalizeVector(v2);
 
             Vector kolV = Vector.GetperpendicularVector(v1, v2);
-            Vector norKolV = Vector.NormalizeVector(kolV);
+            //Vector norKolV = Vector.NormalizeVector(kolV);
 
-            decimal Dnumber = -(norKolV.X * ver1.PoziceX + norKolV.Y * ver1.PoziceY + norKolV.Z * ver1.PoziceZ);
+            decimal Dnumber = -(kolV.X * ver1.PoziceX + kolV.Y * ver1.PoziceY + kolV.Z * ver1.PoziceZ);
 
-            return new Plane(norKolV.X, norKolV.Y, norKolV.Z, Dnumber);
+            return new Plane(kolV.X, kolV.Y, kolV.Z, Dnumber);
         }
 
 

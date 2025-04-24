@@ -14,7 +14,7 @@ namespace Test3D
             g.DrawEllipse(pen, 100, 100, 100, 100);
 
             List<Vertex> vertexes = new List<Vertex>();
-            vertexes.Add(new Vertex(10, 12, 45));
+            vertexes.Add(new Vertex(0, 0, 45));
 
             Vertex v = new Vertex(0, 0, 0);
             Vertex x = new Vertex(0, 0, 10);
@@ -23,7 +23,7 @@ namespace Test3D
             Bitmap b = K.ProjectPoints(vertexes);
             pictureBox1.Width = 200;
             pictureBox1.Height = 200;
-
+            pictureBox1.Image = null;
             pictureBox1.Image = b;
         }
     }

@@ -24,7 +24,7 @@ namespace Test3D
 
         public decimal GetDistanceFromPlane(Plane p)
         {
-            decimal numerator = Math.Abs(p.A * PoziceX + p.B * PoziceY + p.C * p.D + p.D);
+            decimal numerator = Math.Abs(p.A * PoziceX + p.B * PoziceY + p.C * PoziceZ + p.D);
             double helpVar = (double)Math.Round(p.A * p.A + p.B * p.B + p.C * p.C, 15);
             decimal denominator = (decimal)Math.Sqrt(helpVar);
 

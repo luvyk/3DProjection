@@ -165,8 +165,8 @@ namespace Test3D
                 decimal delkaPreponyY = distanceFromFront / (decimal)Math.Cos((double)UhelPohleduYRad);
                 decimal delkaPosunutiY = (decimal)Math.Sqrt(Math.Pow((double)delkaPreponyY, 2) - Math.Pow((double)distanceFromFront, 2));
                 
-                    decimal delkaTrojuhelnikuVBodeX = delkaPosunutiX;
-                    decimal delkaTrojuhelnikuVBodeY = delkaPosunutiY;
+                    decimal delkaTrojuhelnikuVBodeX = delkaPosunutiX * 2;
+                    decimal delkaTrojuhelnikuVBodeY = delkaPosunutiY * 2;
 
                 decimal relativePositionInCameraX = distanceFromLeftPlane / delkaTrojuhelnikuVBodeX;
                 decimal relativePositionInCameraY = distanceFromBottomLane / delkaTrojuhelnikuVBodeY;
